@@ -1,68 +1,34 @@
 <template>
   <div class="d-flex flex-column justify-content-center align-items-center">
     <!-- Logo -->
-    <Logo class="mb-5"></Logo>
-    <div
-      v-if="authType != null && authType != constants.authTypes.none"
-      class="d-flex flex-column justify-content-center align-items-center"
-    >
-      <form
-        v-show="authType != null"
-        class="login-form d-flex flex-column align-items-center"
-        v-on:submit.prevent="login"
-      >
+    <Logo></Logo>
+    <div v-if="authType != null && authType != constants.authTypes.none"
+      class="d-flex flex-column justify-content-center align-items-center">
+      <form v-show="authType != null" class="login-form d-flex flex-column align-items-center"
+        v-on:submit.prevent="login">
         <div class="mb-1">
           <!-- Username -->
           <div class="mb-1">
-            <input
-              type="text"
-              placeholder="Username"
-              class="form-control"
-              id="username"
-              autocomplete="username"
-              v-model="usernameInput"
-              autofocus
-              required
-            />
+            <input type="text" placeholder="Username" class="form-control" id="username" autocomplete="username"
+              v-model="usernameInput" autofocus required />
           </div>
 
           <!-- Password -->
           <div class="mb-1">
-            <input
-              type="password"
-              placeholder="Password"
-              class="form-control"
-              id="password"
-              autocomplete="current-password"
-              v-model="passwordInput"
-              required
-            />
+            <input type="password" placeholder="Password" class="form-control" id="password"
+              autocomplete="current-password" v-model="passwordInput" required />
           </div>
 
           <!-- 2FA -->
           <div v-if="authType == constants.authTypes.totp" class="mb-1">
-            <input
-              type="text"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              placeholder="2FA Code"
-              class="form-control"
-              id="totp"
-              autocomplete="one-time-code"
-              v-model="totpInput"
-              required
-            />
+            <input type="text" inputmode="numeric" pattern="[0-9]*" placeholder="2FA Code" class="form-control"
+              id="totp" autocomplete="one-time-code" v-model="totpInput" required />
           </div>
         </div>
 
         <!-- Remember Me -->
         <div class="mb-3 form-check">
-          <input
-            type="checkbox"
-            class="form-check-input"
-            id="rememberMe"
-            v-model="rememberMeInput"
-          />
+          <input type="checkbox" class="form-check-input" id="rememberMe" v-model="rememberMeInput" />
           <label class="form-check-label" for="rememberMe">Remember Me</label>
         </div>
 

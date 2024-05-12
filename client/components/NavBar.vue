@@ -1,11 +1,9 @@
 <template>
   <div class="d-flex justify-content-between align-items-center">
-    <!-- Logo -->
-    <a :href="constants.basePaths.home" @click.prevent="navigate(constants.basePaths.home, $event)">
-      <Logo :class="{ invisible: !showLogo }" responsive></Logo>
-    </a>
-
     <div class="d-flex">
+      <img src="../assets/nav.gif" style="width: 50%;">
+    </div>
+    <div class="d-flex" style="flex-grow: 1; justify-content: flex-end;">
       <!-- New Note -->
       <a v-if="showNewButton" :href="constants.basePaths.new" class="bttn"
         @click.prevent="navigate(constants.basePaths.new, $event)">
