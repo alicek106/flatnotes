@@ -30,21 +30,21 @@ export function extendedAutolinks(source) {
  * use their built in functionality. We'd like to have
  * both so this is the source of their parsers.
  */
-const DOMAIN = '(?:[w-]+.)*[A-Za-z0-9-]+.[A-Za-z0-9-]+';
-const PATH = '[^<\\s]*[^<?!.,:*_?~\\s]';
-const EMAIL = '[\\w.+-]+@(?:[\\w-]+\\.)+[\\w-]+';
+const DOMAIN = "(?:[w-]+.)*[A-Za-z0-9-]+.[A-Za-z0-9-]+";
+const PATH = "[^<\\s]*[^<?!.,:*_?~\\s]";
+const EMAIL = "[\\w.+-]+@(?:[\\w-]+\\.)+[\\w-]+";
 function trimUnmatchedTrailingParens(source) {
   const trailingParen = /\)+$/.exec(source);
   if (trailingParen) {
     let count = 0;
     for (const ch of source) {
-      if (ch === '(') {
+      if (ch === "(") {
         if (count < 0) {
           count = 1;
         } else {
           count += 1;
         }
-      } else if (ch === ')') {
+      } else if (ch === ")") {
         count -= 1;
       }
     }
@@ -58,10 +58,10 @@ function trimUnmatchedTrailingParens(source) {
 }
 
 function trimTrailingEntity(source) {
-  return source.replace(/&[A-Za-z0-9]+;$/, '');
+  return source.replace(/&[A-Za-z0-9]+;$/, "");
 }
 export function parseEmailLink(source) {
-  const reEmailLink = new RegExp(EMAIL, 'g');
+  const reEmailLink = new RegExp(EMAIL, "g");
   const result = [];
   let m;
   while ((m = reEmailLink.exec(source))) {
@@ -79,13 +79,13 @@ export function parseEmailLink(source) {
 }
 
 export function parseUrlLink(source) {
-  const reWwwAutolink = new RegExp(`(www|https?://)\.${DOMAIN}${PATH}`, 'g');
+  const reWwwAutolink = new RegExp(`(www|https?://)\.${DOMAIN}${PATH}`, "g");
   const result = [];
   let m;
 
   while ((m = reWwwAutolink.exec(source))) {
     const text = trimTrailingEntity(trimUnmatchedTrailingParens(m[0]));
-    const scheme = m[1] === 'www' ? 'http://' : '';
+    const scheme = m[1] === "www" ? "http://" : "";
     result.push({
       text,
       range: [m.index, m.index + text.length - 1],

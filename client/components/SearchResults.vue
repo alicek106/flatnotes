@@ -4,15 +4,10 @@
     <SearchInput :initial-value="searchTerm" class="mb-1"></SearchInput>
 
     <!-- Searching -->
-    <div
-      v-if="searchResults == null || searchResults.length == 0"
-      class="h-100 d-flex flex-column justify-content-center"
-    >
-      <LoadingIndicator
-        :failed="searchFailed"
-        :failedBootstrapIcon="searchFailedIcon"
-        :failedMessage="searchFailedMessage"
-      />
+    <div v-if="searchResults == null || searchResults.length == 0"
+      class="h-100 d-flex flex-column justify-content-center">
+      <LoadingIndicator :failed="searchFailed" :failedBootstrapIcon="searchFailedIcon"
+        :failedMessage="searchFailedMessage" />
     </div>
 
     <!-- Search Results Loaded -->
@@ -20,65 +15,34 @@
       <!-- Controls -->
       <div class="mb-3">
         <select v-model="sortBy" class="bttn sort-select">
-          <option
-            v-for="option in sortOptions"
-            :key="option"
-            :value="option"
-            class="p-0"
-          >
+          <option v-for="option in sortOptions" :key="option" :value="option" class="p-0">
             Order: {{ sortOptionToString(option) }}
           </option>
         </select>
 
-        <button
-          v-if="searchResultsIncludeHighlights"
-          type="button"
-          class="bttn"
-          @click="showHighlights = !showHighlights"
-        >
+        <button v-if="searchResultsIncludeHighlights" type="button" class="bttn"
+          @click="showHighlights = !showHighlights">
           <b-icon :icon="showHighlights ? 'eye-slash' : 'eye'"></b-icon>
           {{ showHighlights ? "Hide" : "Show" }} Highlights
         </button>
       </div>
 
       <!-- Results -->
-      <div
-        v-for="group in resultsGrouped"
-        :key="group.name"
-        :class="{ 'mb-5': sortByIsGrouped }"
-      >
+      <div v-for="group in resultsGrouped" :key="group.name" :class="{ 'mb-5': sortByIsGrouped }">
         <p v-if="sortByIsGrouped" class="group-name">{{ group.name }}</p>
-        <div
-          v-for="result in group.searchResults"
-          :key="result.title"
-          class="bttn result"
-          :class="{ 'mb-3': searchResultsIncludeHighlights && showHighlights }"
-        >
+        <div v-for="result in group.searchResults" :key="result.title" class="bttn result"
+          :class="{ 'mb-3': searchResultsIncludeHighlights && showHighlights }">
           <a :href="result.href" @click.prevent="openNote(result.href, $event)">
             <div class="d-flex justify-content-between">
-              <p
-                class="result-title"
-                v-html="
-                  showHighlights ? result.titleHighlightsOrTitle : result.title
-                "
-              ></p>
-              <span
-                class="last-modified d-none d-md-block"
-                v-b-tooltip.hover
-                title="Last Modified"
-              >
+              <p class="result-title" v-html="showHighlights ? result.titleHighlightsOrTitle : result.title
+                "></p>
+              <span class="last-modified d-none d-md-block" v-b-tooltip.hover title="Last Modified">
                 {{ result.lastModifiedAsString }}
               </span>
             </div>
-            <p
-              v-show="showHighlights"
-              class="result-contents"
-              v-html="result.contentHighlights"
-            ></p>
+            <p v-show="showHighlights" class="result-contents" v-html="result.contentHighlights"></p>
             <div v-show="showHighlights">
-              <span v-for="tag in result.tagMatches" :key="tag" class="tag mr-2"
-                >#{{ tag }}</span
-              >
+              <span v-for="tag in result.tagMatches" :key="tag" class="tag mr-2">#{{ tag }}</span>
             </div>
           </a>
         </div>
@@ -208,8 +172,11 @@ export default {
       let parent = this;
       this.searchFailed = false;
       this.searchResultsIncludeHighlights = false;
+      if (this.searchTerm == null) {
+        this.searchTerm = "*"
+      }
       api
-        .get("/api/search", { params: { term: this.searchTerm } })
+        .get("/api/search", { params: { term: this.searchTerm, imit: 100 } })
         .then(function (response) {
           parent.searchResults = [];
           if (response.data.length == 0) {

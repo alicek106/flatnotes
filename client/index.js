@@ -1,4 +1,4 @@
-import "./global.scss"
+import "./global.scss";
 
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 

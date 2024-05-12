@@ -1,28 +1,16 @@
 <template>
   <div>
     <!-- Loading -->
-    <div
-      v-if="notes == null || notes.length == 0"
-      class="h-100 d-flex flex-column justify-content-center"
-    >
-      <LoadingIndicator
-        :failed="loadingFailed"
-        :failedMessage="loadingFailedMessage"
-        :failedBootstrapIcon="loadingFailedIcon"
-        :show-loader="false"
-      />
+    <div v-if="notes == null || notes.length == 0" class="h-100 d-flex flex-column justify-content-center">
+      <LoadingIndicator :failed="loadingFailed" :failedMessage="loadingFailedMessage"
+        :failedBootstrapIcon="loadingFailedIcon" :show-loader="false" />
     </div>
 
     <!-- Notes Loaded -->
     <div v-else class="d-flex flex-column align-items-center">
       <p class="mini-header mb-1">RECENTLY MODIFIED</p>
-      <a
-        v-for="note in notes"
-        :key="note.title"
-        class="bttn"
-        :href="note.href"
-        @click.prevent="openNote(note.href, $event)"
-      >
+      <a v-for="note in notes" :key="note.title" class="bttn" :href="note.href"
+        @click.prevent="openNote(note.href, $event)">
         {{ note.title }}
       </a>
     </div>
@@ -84,7 +72,7 @@ export default {
             });
           } else {
             parent.loadingFailedMessage =
-              "Click the 'New' button at the top of the page to add your first note";
+              "Click the 'New' button at the top of the page to add your first note!";
             parent.loadingFailedIcon = "pencil";
             parent.loadingFailed = true;
           }

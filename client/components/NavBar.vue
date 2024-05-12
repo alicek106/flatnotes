@@ -1,84 +1,22 @@
 <template>
   <div class="d-flex justify-content-between align-items-center">
     <!-- Logo -->
-    <a
-      :href="constants.basePaths.home"
-      @click.prevent="navigate(constants.basePaths.home, $event)"
-    >
+    <a :href="constants.basePaths.home" @click.prevent="navigate(constants.basePaths.home, $event)">
       <Logo :class="{ invisible: !showLogo }" responsive></Logo>
     </a>
 
-    <!-- Buttons -->
     <div class="d-flex">
       <!-- New Note -->
-      <a
-        v-if="showNewButton"
-        :href="constants.basePaths.new"
-        class="bttn"
-        @click.prevent="navigate(constants.basePaths.new, $event)"
-      >
+      <a v-if="showNewButton" :href="constants.basePaths.new" class="bttn"
+        @click.prevent="navigate(constants.basePaths.new, $event)">
         <b-icon icon="plus-circle"></b-icon><span>New Note</span>
       </a>
 
+      <a v-if="showLogOutButton" class="bttn" @click="$emit('logout')">
+        <b-icon icon="box-arrow-right" font-scale="0.8" class="mr-2"></b-icon>
+        <span>Log Out</span>
+      </a>
       <!-- Menu -->
-      <b-dropdown
-        menu-class="menu"
-        toggle-class="bttn text-decoration-none"
-        size="md"
-        variant="link"
-        no-caret
-        right
-      >
-        <template #button-content>
-          <b-icon icon="list" class="align-middle"></b-icon><span>Menu</span>
-        </template>
-
-        <!-- Search -->
-        <!-- Note: We use .capture.native.stop here to prevent button from gaining focus after the menu is closed. -->
-        <b-dropdown-item-button
-          button-class="bttn d-flex align-items-center"
-          @click.capture.native.stop="$emit('search')"
-        >
-          <b-icon icon="search" font-scale="0.8" class="mr-2"></b-icon>
-          <span class="mr-3">Search</span>
-          <span class="keyboard-shortcut" title="Keyboard Shortcut">/</span>
-        </b-dropdown-item-button>
-
-        <!-- All Notes -->
-        <b-dropdown-item
-          link-class="bttn d-flex align-items-center"
-          :href="azHref"
-          @click.prevent="navigate(azHref, $event)"
-        >
-          <b-icon icon="files" font-scale="0.8" class="mr-2"></b-icon>
-          <span>All Notes</span>
-        </b-dropdown-item>
-
-        <!-- Toggle Theme -->
-        <b-dropdown-item-button
-          button-class="bttn d-flex align-items-center"
-          @click="$emit('toggleTheme')"
-        >
-          <b-icon
-            :icon="darkTheme ? 'sun' : 'moon'"
-            font-scale="0.8"
-            class="mr-2"
-          >
-          </b-icon>
-          <span>Toggle Theme</span>
-        </b-dropdown-item-button>
-
-        <!-- Log Out -->
-        <b-dropdown-divider v-if="showLogOutButton"></b-dropdown-divider>
-        <b-dropdown-item-button
-          v-if="showLogOutButton"
-          button-class="bttn d-flex align-items-center"
-          @click="$emit('logout')"
-        >
-          <b-icon icon="box-arrow-right" font-scale="0.8" class="mr-2"></b-icon>
-          <span>Log Out</span>
-        </b-dropdown-item-button>
-      </b-dropdown>
     </div>
   </div>
 </template>

@@ -16,7 +16,7 @@ api.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  }
+  },
 );
 
 api.interceptors.response.use(
@@ -32,13 +32,13 @@ api.interceptors.response.use(
       EventBus.$emit(
         "navigate",
         `${constants.basePaths.login}?${constants.params.redirect}=${encodeURI(
-          window.location.pathname + window.location.search
-        )}`
+          window.location.pathname + window.location.search,
+        )}`,
       );
       error.handled = true;
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

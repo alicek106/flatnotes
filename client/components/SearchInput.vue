@@ -1,15 +1,8 @@
 <template>
   <form v-on:submit.prevent="search" class="w-100">
     <div class="input-group w-100">
-      <input
-        id="search-input"
-        type="text"
-        inputmode="search"
-        class="form-control"
-        :class="{ highlight: includeHighlightClass }"
-        placeholder="Search"
-        v-model="searchTermInput"
-      />
+      <input id="search-input" type="text" inputmode="search" class="form-control"
+        :class="{ highlight: includeHighlightClass }" placeholder="Search" v-model="searchTermInput" />
       <div class="input-group-append">
         <button class="btn" type="submit">
           <b-icon icon="search"></b-icon>
@@ -26,6 +19,7 @@
   from {
     background-color: var(--colour-background-highlight);
   }
+
   to {
     background-color: var(--colour-background-elevated);
   }
@@ -38,6 +32,7 @@
 
 .btn {
   border: 1px solid var(--colour-border);
+
   svg {
     color: var(--colour-text-muted);
   }
@@ -85,16 +80,11 @@ export default {
       if (this.searchTermInput) {
         this.searchTermInput = this.searchTermInput.trim();
       }
-      if (this.searchTermInput) {
-        EventBus.$emit(
-          "navigate",
-          `${constants.basePaths.search}?${
-            constants.params.searchTerm
-          }=${encodeURIComponent(this.searchTermInput)}`
-        );
-      } else {
-        EventBus.$emit("showToast", "danger", "Please enter a search term ✘");
-      }
+      EventBus.$emit(
+        "navigate",
+        `${constants.basePaths.search}?${constants.params.searchTerm
+        }=${encodeURIComponent(this.searchTermInput ? this.searchTermInput : "*")}`
+      );
     },
 
     highlightSearchInput: function () {

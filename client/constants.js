@@ -3,7 +3,7 @@ export const basePaths = {
   home: "/",
   login: "/login",
   note: "/note",
-  search: "/search",
+  search: "/",
   new: "/new",
 };
 

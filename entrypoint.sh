@@ -20,7 +20,7 @@ It would really make my day 🙏.
 ──────────────────────────────────────
 "
 
-flatnotes_command="python -m \
+flatnotes_command="python3 -m \
                   uvicorn \
                   main:app \
                   --app-dir server \

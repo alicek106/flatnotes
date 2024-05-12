@@ -9,9 +9,9 @@ export function getSearchParam(paramName, defaultValue = null) {
 }
 
 export function getSearchParamBool(paramName, defaultValue = null) {
-  let paramValue = getSearchParam(paramName)
+  let paramValue = getSearchParam(paramName);
   if (paramValue == null) {
-    return defaultValue
+    return defaultValue;
   }
   let paramValueLowerCase = paramValue.toLowerCase();
   if (paramValueLowerCase == "true") {
@@ -24,9 +24,9 @@ export function getSearchParamBool(paramName, defaultValue = null) {
 }
 
 export function getSearchParamInt(paramName, defaultValue = null) {
-  let paramValue = getSearchParam(paramName)
+  let paramValue = getSearchParam(paramName);
   if (paramValue == null) {
-    return defaultValue
+    return defaultValue;
   }
   let paramValueInt = parseInt(paramValue);
   if (!isNaN(paramValueInt)) {

@@ -78,17 +78,8 @@ export default {
 
       this.$bvModal.hide("search-modal");
 
-      // Home Page
-      if (basePath == constants.basePaths.home) {
-        this.updateDocumentTitle();
-        this.currentView = this.views.home;
-        this.$nextTick(function () {
-          this.focusSearchInput();
-        });
-      }
-
       // Search
-      else if (basePath == constants.basePaths.search) {
+      if (basePath == constants.basePaths.search) {
         this.updateDocumentTitle("Search");
         this.searchTerm = helpers.getSearchParam(constants.params.searchTerm);
         this.currentView = this.views.search;
@@ -126,7 +117,7 @@ export default {
     },
 
     updateDocumentTitle: function (suffix) {
-      window.document.title = (suffix ? `${suffix} - ` : "") + "flatnotes";
+      window.document.title = "My Diary";
     },
 
     logout: function () {
@@ -165,7 +156,7 @@ export default {
       this.showToast(
         "danger",
         "Unknown error communicating with the server. Please try again.",
-        "Unknown Error"
+        "Unknown Error",
       );
     },
 
