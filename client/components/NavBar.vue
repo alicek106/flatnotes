@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex">
-      <img src="../assets/nav.gif" style="width: 50%;">
+      <a :href="constants.basePaths.home" @click.prevent="navigate(constants.basePaths.home, $event)">
+        <img src="../assets/nav.gif" style="width: 50%;">
+      </a>
     </div>
     <div class="d-flex" style="flex-grow: 1; justify-content: flex-end;">
       <!-- New Note -->
