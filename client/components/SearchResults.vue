@@ -172,11 +172,9 @@ export default {
       let parent = this;
       this.searchFailed = false;
       this.searchResultsIncludeHighlights = false;
-      if (this.searchTerm == null) {
-        this.searchTerm = "*"
-      }
+      let searchTerm = this.searchTerm ? this.searchTerm : "*";
       api
-        .get("/api/search", { params: { term: this.searchTerm, imit: 100 } })
+        .get("/api/search", { params: { term: searchTerm, limit: 100 } })
         .then(function (response) {
           parent.searchResults = [];
           if (response.data.length == 0) {
