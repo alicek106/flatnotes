@@ -145,7 +145,7 @@ export default {
         return this.resultsByLastModified();
       } else {
         // Default
-        return this.resultsByScore();
+        return this.resultsByTitle();
       }
     },
   },
@@ -200,20 +200,6 @@ export default {
             EventBus.$emit("unhandledServerErrorToast");
           }
         });
-    },
-
-    resultsByScore: function () {
-      return [
-        {
-          name: "_",
-          searchResults: [...this.searchResults].sort(function (
-            searchResultA,
-            searchResultB
-          ) {
-            return searchResultB.score - searchResultA.score;
-          }),
-        },
-      ];
     },
 
     resultsByLastModified: function () {
@@ -279,9 +265,8 @@ export default {
 
     sortOptionToString: function (sortOption) {
       let sortOptionStrings = {
-        0: "Score",
-        1: "Title",
-        2: "Last Modified",
+        0: "Title",
+        1: "Last Modified",
       };
       return sortOptionStrings[sortOption];
     },

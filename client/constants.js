@@ -45,7 +45,7 @@ export const alphabet = [
   "Z",
 ];
 
-export const searchSortOptions = { score: 0, title: 1, lastModified: 2 };
+export const searchSortOptions = { title: 0, lastModified: 1 };
 
 export const authTypes = {
   none: "none",
